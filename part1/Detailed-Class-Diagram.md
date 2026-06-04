@@ -2,7 +2,7 @@
 
 ## Diagram
 
-mermaid
+```mermaid
 classDiagram
     class User {
         +UUID id
