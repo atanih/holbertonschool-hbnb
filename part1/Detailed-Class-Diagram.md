@@ -4,6 +4,7 @@
 
 ```mermaid
 classDiagram
+    direction LR
     class User {
         +UUID id
         +String first_name
