@@ -3,6 +3,7 @@
 ## 1. User Registration
 
 ```mermaid
+
 sequenceDiagram
     participant User
     participant API
