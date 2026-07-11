@@ -20,7 +20,7 @@ sequenceDiagram
     API-->>User: 201 Created
 ```
 
-## 2. Pace Creation
+## 2. Place Creation
 ```mermaid
 sequenceDiagram
     participant User
