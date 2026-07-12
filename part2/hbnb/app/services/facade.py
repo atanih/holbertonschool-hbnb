@@ -35,7 +35,14 @@ class HBnBFacade:
 
     # Place methods
     def create_place(self, place_data):
-        place = Place(**place_data)
+        place = Place(
+            title=place_data['title'],
+            description=place_data.get('description', ''),
+            price=place_data['price'],
+            latitude=place_data['latitude'],
+            longitude=place_data['longitude'],
+            owner=place_data['owner']
+        )
         self.place_repo.add(place)
         return place
 

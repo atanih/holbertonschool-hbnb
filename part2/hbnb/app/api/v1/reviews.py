@@ -1,10 +1,8 @@
 from flask_restx import Namespace, Resource, fields
-from app.services.facade import HBnBFacade
+from app.services import facade
 
 api = Namespace('reviews', description='Review operations')
-facade = HBnBFacade()
 
-# Define the review model for input validation
 review_model = api.model('Review', {
     'text': fields.String(required=True, description='Review text'),
     'rating': fields.Integer(required=True, description='Rating 1-5'),
@@ -27,7 +25,6 @@ class ReviewList(Resource):
         """Create a new review"""
         review_data = api.payload
 
-        # Get the place and user
         place = facade.get_place(review_data['place_id'])
         user = facade.get_user(review_data['user_id'])
         

@@ -1,10 +1,8 @@
 from flask_restx import Namespace, Resource, fields
-from app.services.facade import HBnBFacade
+from app.services import facade
 
 api = Namespace('places', description='Place operations')
-facade = HBnBFacade()
 
-# Define the place model for input validation
 place_model = api.model('Place', {
     'title': fields.String(required=True, description='Title of the place'),
     'description': fields.String(description='Description of the place'),
@@ -29,12 +27,13 @@ class PlaceList(Resource):
         """Create a new place"""
         place_data = api.payload
 
-        # Get the owner
         owner = facade.get_user(place_data['owner_id'])
         if not owner:
             return {'error': 'Owner not found'}, 400
 
+        place_data.pop('owner_id', None)
         place_data['owner'] = owner
+        
         new_place = facade.create_place(place_data)
         return {'id': new_place.id, 'title': new_place.title, 'description': new_place.description, 'price': new_place.price, 'latitude': new_place.latitude, 'longitude': new_place.longitude, 'owner_id': new_place.owner.id}, 201
 
