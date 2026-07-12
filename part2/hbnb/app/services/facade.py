@@ -61,7 +61,12 @@ class HBnBFacade:
 
     # Review methods
     def create_review(self, review_data):
-        review = Review(**review_data)
+        review = Review(
+            text=review_data['text'],
+            rating=review_data['rating'],
+            place=review_data['place'],
+            user=review_data['user']
+        )
         self.review_repo.add(review)
         return review
 
