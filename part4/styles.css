@@ -1,0 +1,263 @@
+/* ==========================================================
+   HBnB - Part 4 : Simple Web Client
+   ========================================================== */
+
+:root {
+    --primary: #ff5a5f;
+    --primary-dark: #e0484d;
+    --text: #333333;
+    --muted: #717171;
+    --bg: #f7f7f7;
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    color: var(--text);
+    background-color: var(--bg);
+    line-height: 1.5;
+}
+
+/* ------------------------------------------------------ HEADER */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    background-color: var(--white);
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    height: 40px;
+}
+
+nav a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: bold;
+}
+
+.login-button {
+    padding: 8px 16px;
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: 8px;
+}
+
+.login-button:hover {
+    background-color: var(--primary-dark);
+}
+
+/* --------------------------------------------------------- MAIN */
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 28px;
+}
+
+/* ------------------------------------------------------- FILTER */
+#filter {
+    margin: 20px;
+    padding: 10px;
+    background-color: var(--white);
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+#filter label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#price-filter {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+/* --------------------------------------------- PLACE CARD (spec) */
+#places-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.place-card {
+    width: 300px;
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: var(--white);
+}
+
+.place-card h2 {
+    font-size: 20px;
+    margin: 10px 0 5px;
+}
+
+.place-card .price {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.details-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: var(--primary);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+.details-button:hover {
+    background-color: var(--primary-dark);
+}
+
+/* ------------------------------------------- PLACE DETAILS (spec) */
+.place-details {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: var(--white);
+}
+
+.place-info p {
+    margin: 6px 0;
+}
+
+.amenity-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.amenity-list li {
+    margin: 4px 8px 4px 0;
+    padding: 4px 12px;
+    background-color: var(--bg);
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+/* ------------------------------------------ REVIEW CARD (spec) */
+.review-card {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: var(--white);
+}
+
+.review-card .author {
+    font-weight: bold;
+}
+
+.review-card .rating {
+    color: #f5a623;
+}
+
+/* ---------------------------------------------------- FORMS */
+.form {
+    max-width: 420px;
+    margin: 40px auto;
+    padding: 25px;
+    background-color: var(--white);
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.add-review {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: var(--white);
+}
+
+.form h1 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.form label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.form input,
+.form select,
+.form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 15px;
+}
+
+.form textarea {
+    min-height: 110px;
+}
+
+.form button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.form button:hover {
+    background-color: var(--primary-dark);
+}
+
+.message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 6px;
+    display: none;
+}
+
+.message.error {
+    color: #a10000;
+    background-color: #ffe3e3;
+    border: 1px solid #ffb3b3;
+    display: block;
+}
+
+.message.success {
+    color: #0a6b2d;
+    background-color: #e1f7e8;
+    border: 1px solid #a8e2be;
+    display: block;
+}
+
+/* -------------------------------------------------------- FOOTER */
+footer {
+    margin-top: 40px;
+    padding: 20px;
+    text-align: center;
+    color: var(--muted);
+    border-top: 1px solid #ddd;
+}
