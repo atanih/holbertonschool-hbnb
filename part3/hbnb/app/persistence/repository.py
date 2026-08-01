@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Repository interface + in-memory and SQLAlchemy implementations."""
 from abc import ABC, abstractmethod
+from sqlalchemy.exc import IntegrityError
 from app import db
 
 
@@ -73,8 +74,16 @@ class SQLAlchemyRepository(Repository):
         self.model = model
 
     def add(self, obj):
-        db.session.add(obj)
-        db.session.commit()
+        try:
+            db.session.add(obj)
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+            raise ValueError(
+                'A record with these unique values already exists')
+        except Exception:
+            db.session.rollback()
+            raise
         return obj
 
     def get(self, obj_id):
@@ -87,10 +96,18 @@ class SQLAlchemyRepository(Repository):
         obj = self.get(obj_id)
         if not obj:
             return None
-        for key, value in data.items():
-            if hasattr(obj, key) and key not in ('id', 'created_at'):
-                setattr(obj, key, value)
-        db.session.commit()
+        try:
+            for key, value in data.items():
+                if hasattr(obj, key) and key not in ('id', 'created_at'):
+                    setattr(obj, key, value)
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+            raise ValueError(
+                'A record with these unique values already exists')
+        except Exception:
+            db.session.rollback()
+            raise
         return obj
 
     def delete(self, obj_id):

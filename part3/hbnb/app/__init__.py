@@ -56,4 +56,15 @@ def create_app(config_class="config.DevelopmentConfig"):
     api.add_namespace(reviews_ns, path='/api/v1/reviews')
     api.add_namespace(auth_ns, path='/api/v1/auth')
 
+    @app.route('/api/v1/protected')
+    def protected_alias():
+        """Alias of /api/v1/auth/protected (task 2 curl example)."""
+        from flask_jwt_extended import verify_jwt_in_request
+        from flask_jwt_extended import get_jwt_identity, get_jwt
+        verify_jwt_in_request()
+        return {
+            'message': f'Hello, user {get_jwt_identity()}',
+            'is_admin': get_jwt().get('is_admin', False)
+        }, 200
+
     return app

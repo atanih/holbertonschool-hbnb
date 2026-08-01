@@ -58,5 +58,8 @@ class AmenityResource(Resource):
             return {'error': 'Admin privileges required'}, 403
         if not facade.get_amenity(amenity_id):
             return {'error': 'Amenity not found'}, 404
-        amenity = facade.update_amenity(amenity_id, api.payload)
+        try:
+            amenity = facade.update_amenity(amenity_id, api.payload)
+        except ValueError as exc:
+            return {'error': str(exc)}, 400
         return amenity.to_dict(), 200

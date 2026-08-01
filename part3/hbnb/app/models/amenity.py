@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Amenity model."""
+from sqlalchemy.orm import validates
 from app import db
 from app.models.base_model import BaseModel
 
@@ -14,6 +15,11 @@ class Amenity(BaseModel):
     def __init__(self, name, **kwargs):
         super().__init__(**kwargs)
         self.name = self.validate_name(name)
+
+    # ---- SQLAlchemy validator: also runs on UPDATE ----
+    @validates('name')
+    def _check_name(self, key, value):
+        return self.validate_name(value)
 
     @staticmethod
     def validate_name(value):

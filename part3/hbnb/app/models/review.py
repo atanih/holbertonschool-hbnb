@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Review model."""
+from sqlalchemy.orm import validates
 from app import db
 from app.models.base_model import BaseModel
 
@@ -29,6 +30,15 @@ class Review(BaseModel):
         self.rating = self.validate_rating(rating)
         self.user_id = user_id
         self.place_id = place_id
+
+    # ---- SQLAlchemy validators: also run on UPDATE, not only on create ----
+    @validates('text')
+    def _check_text(self, key, value):
+        return self.validate_text(value)
+
+    @validates('rating')
+    def _check_rating(self, key, value):
+        return self.validate_rating(value)
 
     @staticmethod
     def validate_text(value):

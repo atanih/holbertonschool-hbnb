@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """User model with bcrypt password hashing."""
 import re
+from sqlalchemy.orm import validates
 from app import db, bcrypt
 from app.models.base_model import BaseModel
 
@@ -33,6 +34,19 @@ class User(BaseModel):
         self.is_admin = bool(is_admin)
         if password:
             self.hash_password(password)
+
+    # ---- SQLAlchemy validators: also run on UPDATE, not only on create ----
+    @validates('first_name')
+    def _check_first_name(self, key, value):
+        return self.validate_name(value, 'first_name')
+
+    @validates('last_name')
+    def _check_last_name(self, key, value):
+        return self.validate_name(value, 'last_name')
+
+    @validates('email')
+    def _check_email(self, key, value):
+        return self.validate_email(value)
 
     # ---------- validation ----------
     @staticmethod

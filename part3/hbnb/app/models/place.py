@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Place model."""
+from sqlalchemy.orm import validates
 from app import db
 from app.models.base_model import BaseModel
 from app.models.associations import place_amenity
@@ -35,6 +36,23 @@ class Place(BaseModel):
         self.latitude = self.validate_latitude(latitude)
         self.longitude = self.validate_longitude(longitude)
         self.owner_id = owner_id
+
+    # ---- SQLAlchemy validators: also run on UPDATE, not only on create ----
+    @validates('title')
+    def _check_title(self, key, value):
+        return self.validate_title(value)
+
+    @validates('price')
+    def _check_price(self, key, value):
+        return self.validate_price(value)
+
+    @validates('latitude')
+    def _check_latitude(self, key, value):
+        return self.validate_latitude(value)
+
+    @validates('longitude')
+    def _check_longitude(self, key, value):
+        return self.validate_longitude(value)
 
     @staticmethod
     def validate_title(value):
