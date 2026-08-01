@@ -1,7 +1,19 @@
+%% HBnB - Task 10, point 4: "Test Your Understanding"
+%% Extension of the schema with a BOOKING entity, showing how a new
+%% table would relate to the existing USER and PLACE tables.
+%%
+%% A BOOKING is a one-to-many child of both USER and PLACE:
+%%   - one USER can make many bookings, each booking belongs to one user
+%%   - one PLACE can receive many bookings, each booking is for one place
+%% This is the same 1:N pattern already used by REVIEW, which is why the
+%% notation is identical.
+
 erDiagram
     USER ||--o{ PLACE : "owns"
     USER ||--o{ REVIEW : "writes"
+    USER ||--o{ BOOKING : "makes"
     PLACE ||--o{ REVIEW : "receives"
+    PLACE ||--o{ BOOKING : "is booked in"
     PLACE }o--o{ AMENITY : "has"
 
     USER {
@@ -47,4 +59,16 @@ erDiagram
     PLACE_AMENITY {
         string place_id PK "FK -> places.id"
         string amenity_id PK "FK -> amenities.id"
+    }
+
+    BOOKING {
+        string id PK "UUID4"
+        string user_id FK "users.id"
+        string place_id FK "places.id"
+        date check_in
+        date check_out
+        decimal total_price
+        string status "pending|confirmed|cancelled"
+        datetime created_at
+        datetime updated_at
     }

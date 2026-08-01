@@ -108,10 +108,18 @@ erDiagram
     }
 
     PLACE_AMENITY {
-        string place_id PK_FK "places.id"
-        string amenity_id PK_FK "amenities.id"
+        string place_id PK "FK -> places.id"
+        string amenity_id PK "FK -> amenities.id"
     }
 ```
+
+Los diagramas en formato fuente están en:
+
+- `sql/er_diagram.mmd` — esquema actual de la base de datos.
+- `sql/er_diagram_extended.mmd` — extensión con una entidad `BOOKING`,
+  que muestra cómo una tabla nueva se relacionaría con `USER` y `PLACE`
+  (punto 4 de la Task 10).
+- `sql/er_diagram.png` — diagrama exportado como imagen.
 
 ## Tests
 
