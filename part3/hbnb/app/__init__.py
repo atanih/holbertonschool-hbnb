@@ -3,6 +3,7 @@
 from flask import Flask
 from flask_restx import Api
 from flask_bcrypt import Bcrypt
+from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 
@@ -28,6 +29,10 @@ def create_app(config_class="config.DevelopmentConfig"):
     """
     app = Flask(__name__)
     app.config.from_object(config_class)
+
+    # Allow the Part 4 web client (served from a different origin) to call
+    # this API from the browser.
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
 
     bcrypt.init_app(app)
     jwt.init_app(app)
