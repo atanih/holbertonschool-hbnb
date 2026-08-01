@@ -1,6 +1,7 @@
 -- =====================================================================
 -- HBnB - Task 9: full database schema (raw SQL)
 -- Compatible with SQLite (development) and MySQL 8 (production).
+-- Column types follow the Task 9 specification.
 -- =====================================================================
 
 -- Order matters: drop children before parents.
@@ -12,11 +13,11 @@ DROP TABLE IF EXISTS users;
 
 -- ------------------------------------------------------------- USERS
 CREATE TABLE users (
-    id          VARCHAR(36)  NOT NULL,
-    first_name  VARCHAR(50)  NOT NULL,
-    last_name   VARCHAR(50)  NOT NULL,
-    email       VARCHAR(120) NOT NULL,
-    password    VARCHAR(128) NOT NULL,
+    id          CHAR(36)  NOT NULL,
+    first_name  VARCHAR(255)  NOT NULL,
+    last_name   VARCHAR(255)  NOT NULL,
+    email       VARCHAR(255) NOT NULL,
+    password    VARCHAR(255) NOT NULL,
     is_admin    BOOLEAN      NOT NULL DEFAULT FALSE,
     created_at  DATETIME     NOT NULL,
     updated_at  DATETIME     NOT NULL,
@@ -26,8 +27,8 @@ CREATE TABLE users (
 
 -- --------------------------------------------------------- AMENITIES
 CREATE TABLE amenities (
-    id          VARCHAR(36) NOT NULL,
-    name        VARCHAR(50) NOT NULL,
+    id          CHAR(36) NOT NULL,
+    name        VARCHAR(255) NOT NULL,
     created_at  DATETIME    NOT NULL,
     updated_at  DATETIME    NOT NULL,
     PRIMARY KEY (id),
@@ -36,13 +37,13 @@ CREATE TABLE amenities (
 
 -- ------------------------------------------------------------ PLACES
 CREATE TABLE places (
-    id          VARCHAR(36)   NOT NULL,
-    title       VARCHAR(100)  NOT NULL,
+    id          CHAR(36)   NOT NULL,
+    title       VARCHAR(255)  NOT NULL,
     description TEXT,
     price       DECIMAL(10,2) NOT NULL,
     latitude    FLOAT         NOT NULL,
     longitude   FLOAT         NOT NULL,
-    owner_id    VARCHAR(36)   NOT NULL,
+    owner_id    CHAR(36)   NOT NULL,
     created_at  DATETIME      NOT NULL,
     updated_at  DATETIME      NOT NULL,
     PRIMARY KEY (id),
@@ -53,11 +54,11 @@ CREATE TABLE places (
 
 -- ----------------------------------------------------------- REVIEWS
 CREATE TABLE reviews (
-    id          VARCHAR(36) NOT NULL,
+    id          CHAR(36) NOT NULL,
     text        TEXT        NOT NULL,
     rating      INT         NOT NULL,
-    user_id     VARCHAR(36) NOT NULL,
-    place_id    VARCHAR(36) NOT NULL,
+    user_id     CHAR(36) NOT NULL,
+    place_id    CHAR(36) NOT NULL,
     created_at  DATETIME    NOT NULL,
     updated_at  DATETIME    NOT NULL,
     PRIMARY KEY (id),
@@ -71,8 +72,8 @@ CREATE TABLE reviews (
 
 -- ---------------------------------------- PLACE_AMENITY (many-to-many)
 CREATE TABLE place_amenity (
-    place_id    VARCHAR(36) NOT NULL,
-    amenity_id  VARCHAR(36) NOT NULL,
+    place_id    CHAR(36) NOT NULL,
+    amenity_id  CHAR(36) NOT NULL,
     PRIMARY KEY (place_id, amenity_id),
     CONSTRAINT fk_pa_place
         FOREIGN KEY (place_id) REFERENCES places(id) ON DELETE CASCADE,
