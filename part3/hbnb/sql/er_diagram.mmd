@@ -1,0 +1,50 @@
+erDiagram
+    USER ||--o{ PLACE : "owns"
+    USER ||--o{ REVIEW : "writes"
+    PLACE ||--o{ REVIEW : "receives"
+    PLACE }o--o{ AMENITY : "has"
+
+    USER {
+        string id PK "UUID4"
+        string first_name
+        string last_name
+        string email UK
+        string password "bcrypt hash"
+        boolean is_admin
+        datetime created_at
+        datetime updated_at
+    }
+
+    PLACE {
+        string id PK "UUID4"
+        string title
+        text description
+        decimal price
+        float latitude
+        float longitude
+        string owner_id FK "users.id"
+        datetime created_at
+        datetime updated_at
+    }
+
+    REVIEW {
+        string id PK "UUID4"
+        text text
+        int rating "1-5"
+        string user_id FK "users.id"
+        string place_id FK "places.id"
+        datetime created_at
+        datetime updated_at
+    }
+
+    AMENITY {
+        string id PK "UUID4"
+        string name UK
+        datetime created_at
+        datetime updated_at
+    }
+
+    PLACE_AMENITY {
+        string place_id PK_FK "places.id"
+        string amenity_id PK_FK "amenities.id"
+    }
