@@ -120,8 +120,6 @@ python3 -m unittest discover tests -v
 python3 -m flake8 app/ config.py run.py
 ```
 
-## Autores
+## Autor
 
-- (nombre 1)
-- (nombre 2)
-- (nombre 3)
+- Antonio J. Torres Alvarado
